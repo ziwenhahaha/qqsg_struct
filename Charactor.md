@@ -1,23 +1,17 @@
 # 玩家角色偏移量
 
 ``` cpp
-// 国家信息 sizeof(Country)=348
-typedef struct Country
-{
-	DWORD Id; // 1:魏，2:蜀，3:吴
-	// TODO
-};
 
-/// 角色信息 偏移量 [基地址+14+98+0x8868]
+/// 角色信息 偏移量 [[[11F6FEC]+14]+98]+0x88F0
 typedef struct CharactorInfo
 {
-	// base_addr+14+98+0x8868
-	char NickName[84];
+	char NickName[132];
 	DWORD MaxHeath;
 	DWORD CurrentHealth;
 	DWORD MaxMagic;
 	DWORD CurrentMagic;
-	Country Country;
-	DWORD Level;
+	char unknown[8];
+	DWORD Country;
+	DWORD Occupation;
 };
 ```
