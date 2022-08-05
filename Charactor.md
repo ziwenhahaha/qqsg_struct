@@ -1,5 +1,6 @@
 # 玩家角色偏移量
 
+``` cpp
 // 国家信息 sizeof(Country)=348
 typedef struct Country
 {
@@ -7,8 +8,7 @@ typedef struct Country
 	// TODO
 };
 
-结构 偏移量 [基地址+14+98+0x8868]
-/// 角色信息
+/// 角色信息 偏移量 [基地址+14+98+0x8868]
 typedef struct CharactorInfo
 {
 	// base_addr+14+98+0x8868
@@ -20,3 +20,4 @@ typedef struct CharactorInfo
 	Country Country;
 	DWORD Level;
 };
+```
