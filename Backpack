@@ -1,0 +1,15 @@
+# 背包信息
+
+// 背包项
+typedef struct BackpackItem
+{
+	// TODO
+};
+
+// 背包信息
+typedef struct Backpack
+{
+	// base+38+4A4
+	BackpackItem* items;
+	DWORD length;
+};
