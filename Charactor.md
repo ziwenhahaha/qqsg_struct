@@ -13,5 +13,6 @@ typedef struct CharactorInfo
 	char unknown[8];
 	DWORD Country;
 	DWORD Occupation;
+	
 };
 ```
