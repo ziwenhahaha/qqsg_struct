@@ -1,5 +1,6 @@
 # 背包信息
 
+``` cpp
 // 背包项
 typedef struct BackpackItem
 {
@@ -13,3 +14,4 @@ typedef struct Backpack
 	BackpackItem* items;
 	DWORD length;
 };
+```
