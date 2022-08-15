@@ -2,17 +2,46 @@
 
 ``` cpp
 
-/// 角色信息 偏移量 [[[11F6FEC]+14]+98]+0x88F0
-typedef struct CharactorInfo
+#define CHARACTOR_STATE 0x8A;
+
+DWORD* GetGameWorld()
 {
-	char NickName[132];
-	DWORD MaxHeath;
-	DWORD CurrentHealth;
-	DWORD MaxMagic;
-	DWORD CurrentMagic;
-	char unknown[8];
-	DWORD Country;
-	DWORD Occupation;
-	
-};
+   return (DWORD*)((*(DWORD*)0x11F6FEC) + 0x14);
+}
+
+DWORD* GetCharactor()
+{
+    return (DWORD*)GetGameWorld()[0x98];
+}
+
+DWORD GetCharactorOf(int index)
+{
+    return GetCharactor()[index];
+}
+
+```
+
+## 获取角色的状态
+
+``` cpp
+
+DWORD state = GetCharactorOf(CHARACTOR_STATE);
+
+// 静止状态
+if(state == 0x2)
+{
+
+}
+// 左右移动状态
+if(state == 0x4)
+{
+
+}
+
+// 跳跃状态
+if(state == 0x10)
+{
+
+}
+
 ```
