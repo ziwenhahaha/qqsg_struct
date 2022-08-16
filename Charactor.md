@@ -4,6 +4,7 @@
 
 #define CHARACTOR_STATE 0x8A;
 #define MOVE_FORWARD = 0x89;
+#define CHARACTOR_NAME 0x8868;
 
 DWORD* GetGameWorld()
 {
