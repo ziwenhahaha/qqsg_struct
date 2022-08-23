@@ -8,14 +8,9 @@
 #define LocationX 0x6;
 #define LocationY 0x11;
 
-DWORD* GetGameWorld()
-{
-   return (DWORD*)((*(DWORD*)0x11F6FEC) + 0x14);
-}
-
 DWORD* GetCharactor()
 {
-    return (DWORD*)GetGameWorld()[0x98];
+    return (DWORD*)((DWORD*)(GetOverWorld()[0x5]))[0x38];
 }
 
 DWORD GetCharactorOf(int index)
