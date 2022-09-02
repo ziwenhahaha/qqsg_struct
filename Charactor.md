@@ -2,7 +2,25 @@
 
 ``` cpp
 
-#define CHARACTOR_STATE 0x8A;
+// 可以自己去分析这块内存的数据，包含了（当前玩家的坐标、名字、职业、国家、三国币、五铢、5维属性、基础生命值、当前生命值等等）
+typedef struct Charactor
+{
+    // TODO
+};
+
+typedef struct HObject
+{
+    char padding[38]; // 38 * 4 = 0x98;
+    Charactor* playerInfo;
+};
+
+typedef struct Overworld
+{
+    char padding_1[5];
+    
+};
+
+#define CHARACTOR_STATE 128;
 #define MOVE_FORWARD = 0x89;
 #define CHARACTOR_NAME 0x8868;
 #define LocationX 0x6;
@@ -10,6 +28,7 @@
 
 DWORD* GetCharactor()
 {
+    // 玩家结构首地址= [[[基地址]+0x14]+0x98]
     return (DWORD*)((DWORD*)(GetOverWorld()[0x5]))[0x38];
 }
 
@@ -59,9 +78,6 @@ if(state == 0x4)
    // 0x13：右下
    // 0xD:左上
    // 0xB 右上
-   
-   // 可以通过修改这个值实现变速效果
-   GetCharactorOf(0x128); // 运动时长 单位ms
 }
 
 // 跳跃状态
