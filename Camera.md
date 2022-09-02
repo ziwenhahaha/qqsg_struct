@@ -14,10 +14,8 @@ DWORD* GetCamera()
 
 void main()
 {
-    // 清除黑色图层
-    // 黑色图层分2种，区别是可视范围大小不同
-    GetCamera()[154] = 0;
-    GetCamera()[157] = 0;
+    GetCamera()[127] = 0;
+    GetCamera()[129] = 0;
 }
 
 ```
