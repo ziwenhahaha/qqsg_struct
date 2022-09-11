@@ -55,3 +55,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, PVOID pvReserved)
 稍后在游戏界面将连续弹窗：注入成功->退出成功->注入成功->退出成功
 
 可以利用上述机制实现一些恶意代码
+
+## 反作弊方法
+
+可以通过枚举模块实现反作弊的效果。
