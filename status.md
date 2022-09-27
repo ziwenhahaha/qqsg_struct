@@ -27,11 +27,7 @@ typedef struct PlayerStatusTree {
 	DWORD Count;
 };
 
-DWORD statusCount = playerInfo+0x8650;
-
-PStatus* statuses = playerInfo+0x8654;
-
-PStatus* nullStatus = playerInfo+0x8658;
+PlayerStatusTree* tree = playerInfo+0x8658;
 
 ```
 
