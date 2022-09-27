@@ -2,30 +2,30 @@
 
 ``` cpp
 
-// 数值表记录model
-typedef struct StatusMetadata {
 
-  ...
+typedef struct PlayerStatus {
+	DWORD CurrentTime;
+	PDWORD Metadata;
+} *PPlayerStatus;
 
-} *PStatusMetadata;
+typedef struct PlayerStatusNode {
+	PlayerStatusNode* Pre;
 
-// 我的异常状态
-typedef struct MyStatus {
-char unknown[4];
-PStatusMetadata Metadata;
+	PlayerStatusNode* Next;
 
-// 该状态已经持续了多久，单位毫秒
-DWORD KeepTime;
+	PPlayerStatusNode Cur;
 
-...
+	DWORD Unknown;
 
-} *PMyStatus;
+	PPlayerStatus Status;
 
-typedef struct Status {
-char unknown[10];
-PMyStatus DotInfo;
-...
-} *PStatus;
+} *PPlayerStatusNode;
+
+typedef struct PlayerStatusTree {
+	PPlayerStatusNode Root;
+	DWORD unknow;
+	DWORD Count;
+};
 
 DWORD statusCount = playerInfo+0x8650;
 
