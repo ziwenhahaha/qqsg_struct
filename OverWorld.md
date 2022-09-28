@@ -4,6 +4,7 @@
 // File OverWorld.h
 
 #include "Charactor.h"
+#include "Camera.h";
 
 typedef struct CurMap {
 
@@ -15,10 +16,11 @@ typedef struct CurMap {
 } PCurMap;
 
 typedef struct GameWorld{
-
-    // 这一块的数据应该是固定的一些数值，可能是上一张地图，下一张地图，数值表等全局使用的信息。
-    DWORD UnknownFileds[0x14/4];
-    
+    // 某些固定的数值
+    DWORD UnknownField3[0xC/4];
+    Camera* Carame;
+    // 某些固定的数值
+    DWORD UnknownFileds[(0x14-0xC-sizeof(Camera*))/4];
     PCurMap CurMap;
 } PGameWorld;
 
