@@ -41,15 +41,6 @@ typedef struct PlayerStatusNode {
 
 } *PPlayerStatusNode;
 
-// 玩家状态树 = player+0x8658
-typedef struct PlayerStatusTree {
-	// 树的状态根节点
-	PPlayerStatusNode Root;
-	// 树的最高根节点（此节点是默认拥有的，即玩家就算没有任何状态，也有此节点，如果 Root == TopRoot，则说明实体没有任何状态）
-	PPlayerStatusNode TopRoot;
-	// 树的节点数量
-	DWORD Count;
-} *PPlayerStatusTree;
 ```
 
 使用方法：
