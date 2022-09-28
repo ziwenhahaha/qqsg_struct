@@ -2,20 +2,13 @@
 
 ``` cpp
 
-DWORD* GetCamera()
-{
-    return GetOverWorld() + 0xC;
-}
+// 含相机的坐标，跟随的实体等信息，可能可以用于编写观战和录像的插件，适合那些喜欢看大佬打架的围观群众
+typedef struct Camera {
+    // ...
+};
+
 
 ```
 ## Sample
 
-``` cpp
-
-void main()
-{
-    GetCamera()[127] = 0;
-    GetCamera()[129] = 0;
-}
-
-```
+暂无例子
