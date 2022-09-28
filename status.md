@@ -2,32 +2,72 @@
 
 ``` cpp
 
+// 数值表结构
+typedef struct StatusMetadata {
+	DWORD offset[0x94/4];
+	// 持续时间
+	DWORD LeftTime;
+	// 状态大类
+	DWORD Type;
+} *PStatusMetadata;
 
+// 玩家状态
 typedef struct PlayerStatus {
+	// 持续时间1，如果数值表里的某个字段 & 0x4000 的值为0 （RecordTimeFlag），则此时间不会增加
 	DWORD CurrentTime;
-	PDWORD Metadata;
+	// 状态信息，如果当前是根状态，则此值为 nullptr
+	PStatusMetadata Metadata;
+	
+	DWORD unknown[4];
+	
+	// 持续时间2
+	DWORD CurrentTime2;
 } *PPlayerStatus;
 
+// 玩家链表节点
 typedef struct PlayerStatusNode {
+	// 上一个状态
 	PlayerStatusNode* Pre;
-
+	// 下一个状态
 	PlayerStatusNode* Next;
-
-	PPlayerStatusNode Cur;
-
+	// 当前状态
+	PlayerStatusNode* Cur;
+	
 	DWORD Unknown;
-
+	// 玩家的状态信息
 	PPlayerStatus Status;
 
 } *PPlayerStatusNode;
 
+// 玩家状态树 = player+0x8658
 typedef struct PlayerStatusTree {
+	// 树的状态根节点
 	PPlayerStatusNode Root;
-	DWORD unknow;
+	// 树的最高根节点（此节点是默认拥有的，即玩家就算没有任何状态，也有此节点，如果 Root == TopRoot，则说明实体没有任何状态）
+	PPlayerStatusNode TopRoot;
+	// 树的节点数量
 	DWORD Count;
-};
-
-PlayerStatusTree* tree = playerInfo+0x8658;
-
+} *PPlayerStatusTree;
 ```
 
+使用方法：
+
+``` cpp
+// 实现一个获取青梅倒计时的代码
+
+auto root = (PPlayerStatusNode) GetMonsterOf(0x8658/4)
+
+while(root != nullptr && root->Status != nullptr && root->Status->Metadata != nullptr)
+{
+	// 此怪物所携带的buff,279表示青梅倒计时buff
+	if(root->Status->Metadata->Type == 279)
+	{
+		auto left_seconds = root->Status->Metadata->LeftTime - root->Status->CurrentTime;
+		
+		printf("青梅煮酒还有 %d 毫秒开启", left_seconds);
+	}
+	
+	root = root.Next;
+}
+
+```
