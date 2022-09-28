@@ -5,9 +5,11 @@
 ## 项目的结构
 
 GameWorld
-->Camera
-->CurMap
-  ->GameEntity
+- Camera
+- CurMap
+  * GameEntity
+    - Speed
+    - Status
   
 ## 说明
 
