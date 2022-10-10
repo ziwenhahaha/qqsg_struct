@@ -1,17 +1,33 @@
 # 背包信息
 
 ``` cpp
+
+typedef BackpackItem *PBackpackItem;
+
+// 一些方法，比如maxStoreCount(...)表示最大数量啥的,前面都是thiscall，具体其他的不知道了。
+typedef struct BackpackBehaviors {
+    int (__thiscall* method1)(PBackpackItem);
+    ...
+};
+
 // 背包项
+// 
 typedef struct BackpackItem
 {
-	// TODO
+   BackpackBehaviors* Method;
+   // 一些字段，比如laycount 摆摊数量
 };
 
 // 背包信息
+// auto backpack = (Backpack*)gameworld+0x34;
 typedef struct Backpack
 {
-	// base+38+4A4
-	BackpackItem* items;
-	DWORD length;
+    int pad[0xc/4];
+    int maxValue;
+    int pad2[0xc/4];
+    // 貌似是165，我也没看具体多少个
+    BackpackItem* Items[165];
 };
+
+
 ```
