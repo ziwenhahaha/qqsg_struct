@@ -46,10 +46,23 @@ CtrlState 枚举：
 LifeState 枚举：
 
 ``` txt
-1 普通
-2 战斗状态
-3 对话/交易状态
+LIFE_STATE_NORMAL      = 1; --普通状态
+LIFE_STATE_FIGHT       = 2; --战斗状态
+LIFE_STATE_DEAD        = 8; --死亡状态
+LIFE_STATE_EXCHANGE    = 16; --交流，交易，交换状态
+LIFE_STATE_DREAM       = 32; --梦境状态
+LIFE_STATE_ERRER       = 64;
 ```
 
 FightState 枚举
 
+``` lua
+FIGHT_STATE_INVALID    =0;                        -- 无效战斗状态
+FIGHT_STATE_CALM       =1 ;                           -- 处于战斗状态但未进行战斗
+FIGHT_STATE_GATHER     =2 ;                         -- 战斗蓄气中
+FIGHT_STATE_COMBAT     =3 ;                         -- 战斗进行中
+FIGHT_STATE_FREEZE     =4 ;                         -- 战斗硬直中
+FIGHT_STATE_INJURE     =5 ;                         -- 战斗受伤中
+FIGHT_STATE_STATUS     =6 ;                         -- 战斗中中异常状态，不受控制状态
+FIGHT_STATE_DEAD       =7 ;                         -- 战斗死亡状态
+``` 
