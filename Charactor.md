@@ -41,4 +41,8 @@ typedef struct PGameEntity
 	DWORD Count;
 };
 
+// direction values:
+// 1:左
+// 0:右
+
 ```
