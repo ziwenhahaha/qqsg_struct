@@ -45,4 +45,16 @@ typedef struct PGameEntity
 // 1:左
 // 0:右
 
+// moveState:
+// 2:静止
+// 4:移动
+// 16：浮空状态（跳跃）
+
+// moveForward (pressedKey) FLAG enum:
+// 4:press left
+// 2:press right
+// 8:press up
+// 16:press down
+
+// 无法同时按左右 或 上下，其他组合可以位运算实现，比如按左上  1|4|8=13
 ```
