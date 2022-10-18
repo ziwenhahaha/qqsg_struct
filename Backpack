@@ -4,11 +4,112 @@
 
 typedef BackpackItem *PBackpackItem;
 
-// 一些方法，比如maxStoreCount(...)表示最大数量啥的,前面都是thiscall，具体其他的不知道了。
-typedef struct BackpackBehaviors {
-    int (__thiscall* method1)(PBackpackItem);
-    ...
+// 背包类的方法，字段为只读，且无法使用VirtualProtect修改内存页属性
+// unknown 前缀的字段表示这块区域是我未分析到的
+struct BackpackItemBehavior
+{
+  int unknown[2];
+  // 数值表的Id
+  int (__thiscall *baseId)(BackpackItem *item);
+  int unknown1[4];
+  // 物品的类型 装备/道具
+  int (__thiscall *itemType)(BackpackItem *item);
+  int padding[1];
+  // 该物品的服务端的位置
+  // 此位置是可以理解为scoped唯一的，scoped是玩家范围，在使用/操作道具时，服务端会在玩家的背包里找到serverPos对应的道具，可以简单理解为一个Id
+  // 如果你熟悉DDD，那么serverPos就是实体id
+  int (__thiscall *serverPos)(BackpackItem *item);
+  int padding_0[4];
+  // 道具的名字
+  char *(__thiscall *name)(BackpackItem *item);
+  // 道具的内容/描述
+  char *(__thiscall *content)(BackpackItem *item);
+  // 道具的价格（推测是摆摊的价格，也可能是出售给千货商的价格）
+  int (__thiscall *price)(BackpackItem *item);
+  // 道具的价格（可能是出售给千货商/NPC的价格）
+  int (__thiscall *soldPrice)(BackpackItem *item);
+  // 道具的属性，在数值表中的H列
+  int (__thiscall *attr)(BackpackItem *item);
+  // 可携带的最大数量
+  int (__thiscall *maxCount)(BackpackItem *item);
+  // 最大存仓数量
+  int (__thiscall *maxStoreCount)(BackpackItem *item);
+  // 性别限制标志位，参照数值表 1 男，2女
+  int (__thiscall *sexLimit)(BackpackItem *item);
+  int padding1[1];
+  // 品质，决定了物品名字的颜色
+  int (__thiscall *Rare)(BackpackItem *item);
+  // 可使用的对象，数值表k列 https://github.com/WanderingQuantum/qqsganalysis/issues/7
+  int (__thiscall *target)(BackpackItem *item);
+  // 不知道是啥
+  int (__thiscall *unkown_fuck)(BackpackItem *item);
+  // 我也忘记是啥了，貌似是该道具是否是能使用的
+  int (__thiscall *canUseTo)(BackpackItem *item);
+  int padding2[8];
+  // 当前玩家拥有的总数量
+  int (__thiscall *count)(BackpackItem *item);
+  int padding3[7];
+  // 是否有等级限制
+  int (__thiscall *LevelLimitVal)(BackpackItem *item);
+  // 职业限制标志位
+  int (__thiscall *jobLimit)(BackpackItem *item);
+  int padding3_1[1];
+  // 寄售的排序序号
+  int (__thiscall *auctionsort)(BackpackItem *item);
+  // 是否可以批量使用
+  int (__thiscall *canMulUse)(BackpackItem *item);
+  int padding4[5];
+  // 摆摊数量
+  int (__thiscall *laywrapCount)(BackpackItem *item);
+  // 数值表的主要数值字段的含义
+  int (__thiscall *metaValueType)(BackpackItem *item);
+  // 主要数值1
+  int (__thiscall *ExtParam1)(BackpackItem *item);
+  // 主要数值2
+  int (__thiscall *metaValue)(BackpackItem *item);
+  int padding4_0[1];
+  // 增强的位置（装备的属性）
+  int (__thiscall *EnchaseWeizhi)(BackpackItem *item);
+  int (__thiscall *EnchaseId)(BackpackItem *item);
+  int (__thiscall *EnchasePoint)(BackpackItem *item);
+  int (__thiscall *EnchaseWeaponLmt)(BackpackItem *item);
+  // 声望
+  int (__thiscall *Repute)(BackpackItem *item);
+  int padding4_02[1];
+  // 最大等级，就是超过多少级就无法使用了，目前还没有该类型的道具
+  int (__thiscall *HiLvlLimitVal)(BackpackItem *item);
+  // 元神等级限制标志位
+  int (__thiscall *SoulLvLimit)(BackpackItem *item);
+  int padding4_1[2];
+  // cd剩余时间
+  int (__thiscall *timeLeft)(BackpackItem *item);
+  int padding5[2];
+  // 特性标志位2
+  int (__thiscall *attr2)(BackpackItem *item);
+  // 我也不知道
+  int (__thiscall *fuck2)(BackpackItem *item);
+  int padding6[1];
+  // 一些内容描述的方法
+  int (__thiscall *ContentBG)(BackpackItem *item);
+  int (__thiscall *ContentOrigin)(BackpackItem *item);
+  int (__thiscall *ContentFunction)(BackpackItem *item);
+  int (__thiscall *ContentUseWay)(BackpackItem *item);
+  int padding6_0[2];
+  // 魔能丹的属性
+  int (__thiscall *bottleCurPoint)(BackpackItem *item);
+  int padding6_1;
+  int (__thiscall *bottleState)(BackpackItem *item);
+  int padding7[1];
+  // 物品的图片
+  int (__thiscall *picCode)(BackpackItem *item);
+  int padding8[402];
+  // 特性标志位3
+  int (__thiscall *attr3)(BackpackItem *item);
+  int padding9[24];
+  // 该物品所属的玩家等级，该方法是过时的，应该是三国早期设计的
+  int (__thiscall *MasterLvl)(BackpackItem *item);
 };
+
 
 // 背包项
 // 
