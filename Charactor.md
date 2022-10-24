@@ -57,4 +57,9 @@ typedef struct PGameEntity
 // 16:press down
 
 // 无法同时按左右 或 上下，其他组合可以位运算实现，比如按左上  1|4|8=13
+
+// entityType
+// 1:玩家
+// 2:怪物
+// 3:NPC
 ```
