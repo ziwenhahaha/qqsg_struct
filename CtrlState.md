@@ -70,3 +70,11 @@ FIGHT_STATE_INJURE     =5 ;                         -- 战斗受伤中
 FIGHT_STATE_STATUS     =6 ;                         -- 战斗中中异常状态，不受控制状态
 FIGHT_STATE_DEAD       =7 ;                         -- 战斗死亡状态
 ``` 
+
+messageState枚举
+
+``` txt
+
+0x80000 -- 僵直后仰
+
+```
