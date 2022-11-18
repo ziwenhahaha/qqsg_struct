@@ -26,11 +26,11 @@ typedef struct Speed {
 typedef struct PGameEntity
 {
 	DWORD UnknownBlock[0x304/4];
-	// 横轴移速
+	// X轴移速
 	PSpeed SpeedX;
-	// 数轴移速（跳跃）
+	// Y轴跳跃高度
 	PSpeed SpeedY;
-	// 莫非是Z轴的速度? 固定是2000,还不知道是啥速度
+	// Y轴移速 固定2000
 	PSpeed SpeedUnknown;
     	DWORD UnknownBlock2[(0x8658-0x304-sizeof(PSpeed) * 3)/4];
     	// 树的状态根节点
