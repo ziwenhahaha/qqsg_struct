@@ -64,3 +64,48 @@ struct UIControl
   int pad12[20];
   int luaEnv;
 };
+
+// 判断窗体是否可见
+// 如果你要实现自动切仓，需要判断私仓的窗口是否已经展示。
+// 这个函数的性能比LUA更高，而且可以在非UI线程执行。
+#include <string>
+bool WinIsVisible(UIRoot* root, const char* window)
+{
+	auto lstr = std::string(window);
+
+	auto index = lstr.find_first_of(".");
+
+	if (strcmp(root->name, lstr.substr(0, index).c_str()) != 0)
+	{
+		return false;
+	}
+
+	// should not search children.
+	if (index > lstr.size())
+	{
+		return ((root->State >> 7) & 1) != 0;
+	}
+
+	auto size = root->end - root->begin;
+
+	for (auto i = 0; i < size; i++)
+	{
+		auto child = lstr.substr(index + 1);
+
+		if (WinIsVisible(root->begin[i], child.c_str())) 
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+int main()
+{
+  UIRoot* uiroot = ...;
+  
+  auto bShowMsgbox = WinIsVisible(uiroot, "UI.SysMsgbox");
+  
+  printf("The msgbox is show is %d.", bShowMsgbox);
+}
