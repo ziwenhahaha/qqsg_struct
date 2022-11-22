@@ -4,43 +4,82 @@
 
 ``` cpp
 
-// 数值表结构
+template<typename T>
+struct GameTreeNode {
+
+	GameTreeNode<T>* LeftChild;
+	GameTreeNode<T>* Father;
+	GameTreeNode<T>* RightChild;
+	int ValueId;
+	T* Value;
+};
+
+template<typename T>
+struct GameTree {
+	int unknown_0;
+	GameTreeNode<T>* Summary;
+	int unknown_1;
+	int Count;
+};
+
+
+
+// 状态数值表
 typedef struct StatusMetadata {
-	DWORD offset[0x94/4];
-	// 持续时间
+	DWORD TotalTime;
+	DWORD unknown_1;
+	DWORD unknown_2;
+	DWORD unknown_3;
+	DWORD RecordTimeFlag;
+	DWORD unknown_5;
+	DWORD unknown_6;
+	DWORD unknown_7;
+	DWORD unknown_8;
+	char Desc[32];
+	DWORD unknown_17;
+	DWORD unknown_18;
+	DWORD unknown_19;
+	DWORD unknown_20;
+	DWORD unknown_21;
+	DWORD unknown_22;
+	DWORD unknown_23;
+	DWORD unknown_24;
+	DWORD unknown_25;
+	DWORD unknown_26;
+	DWORD unknown_27;
+	DWORD unknown_28;
+	DWORD unknown_29;
+	DWORD unknown_30;
+	DWORD unknown_31;
+	DWORD unknown_32;
+	DWORD unknown_33;
+	DWORD unknown_34;
+	DWORD PicCode;
+	DWORD unknown_36;
 	DWORD LeftTime;
-	// 状态大类
 	DWORD Type;
+	StatusMetaValues Values; // int[15];
+	DWORD SomeFlag;
+	DWORD Effect;
+	DWORD MaxImposeTimes;
+	DWORD Todo[4];
+	DWORD Todo1;
+	DWORD Todo2[30];
 } *PStatusMetadata;
 
-// 玩家状态
-typedef struct PlayerStatus {
-	// 持续时间1，如果数值表里的某个字段 & 0x4000 的值为0 （RecordTimeFlag），则此时间不会增加
+// 状态
+typedef struct Status {
 	DWORD CurrentTime;
-	// 状态信息，如果当前是根状态，则此值为 nullptr
 	PStatusMetadata Metadata;
-	
-	DWORD unknown[4];
-	
-	// 持续时间2
+	DWORD unknown_0;
+	DWORD unknown_1;
+	DWORD unknown_2;
 	DWORD CurrentTime2;
-} *PPlayerStatus;
-
-// 玩家链表节点
-typedef struct PlayerStatusNode {
-	// 上一个状态
-	PlayerStatusNode* Pre;
-	// 下一个状态
-	PlayerStatusNode* Next;
-	// 当前状态
-	PlayerStatusNode* Cur;
-	
-	DWORD Unknown;
-	// 玩家的状态信息
-	PPlayerStatus Status;
-
-} *PPlayerStatusNode;
-
+	DWORD unknown_4;
+	DWORD unknown_5;
+	DWORD unknown_6;
+	DWORD ShowType;
+} PStatus;
 ```
 
 使用方法：
@@ -48,19 +87,30 @@ typedef struct PlayerStatusNode {
 ``` cpp
 // 实现一个获取青梅倒计时的代码
 
-auto root = (PPlayerStatusNode) GetMonsterOf(0x8658/4)
+auto root = (GameTree<Status>) ...;
 
-while(root != nullptr && root->Status != nullptr && root->Status->Metadata != nullptr)
+// 玩家状态树的描述节点，
+auto summary = root->Summary;
+
+// 最左边的节点
+auto leftmost = summary->LeftChild;
+// 最右边的节点
+auto rightmost = summary->RightChild;
+
+// 根节点
+auto top_root = summary->Father;
+
+search(top_root);
+
+search(GameTree<Status> top_root)
 {
-	// 此怪物所携带的buff,279表示青梅倒计时buff
-	if(root->Status->Metadata->Type == 279)
-	{
-		auto left_seconds = root->Status->Metadata->LeftTime - root->Status->CurrentTime;
-		
-		printf("青梅煮酒还有 %d 毫秒开启", left_seconds);
-	}
-	
-	root = root.Next;
+    if(top_root && top_root->Value && top_root->Value->Metadata)
+    {
+        if(top_root->Value->Metadata->Type == 152)
+	  printf("玩家身上有减速状态");
+	search(top_root->LeftChild);
+	search(top_root->RightChild);
+    }
 }
 
 ```
