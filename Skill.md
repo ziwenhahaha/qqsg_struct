@@ -24,3 +24,55 @@ F列，技能标志位：
 0x800000 冲锋子类，效果比冲锋类更弱，会小幅度击退受击者
 0x4000000 特殊动画的招式，110XS
 ```
+
+防止有人使用此数据作弊，我就不提供如何找 ComboItem 的方法了
+
+``` cpp
+struct ComboItem_vftable
+{
+  int pad;
+  int (__thiscall *serverPos)(PComboItem combo);
+  int pad1[68];
+  int (__thiscall *level)(PComboItem combo);
+};
+
+// 玩家技能
+struct ComboItem
+{
+  ComboItem_vftable *vftable;
+  int pad[9];
+  SkillMeta *Meta;
+};
+// 数值表
+struct SkillMeta
+{
+  int SkillId;
+  char name[32];
+  char desc[304];
+  int values[6];
+  int Flag;
+  int values2[29];
+  // 修改为0可以无视僵直效果（仅客户端生效，可僵直结束后瞬移，但不能发招）
+  int yinzhiTime;
+  int values3[3];
+  int MixStatusId;
+  int values4[7];
+  // 通过修改此值貌似可以实现连击的伤害增幅效果
+  int LianJiCount;
+  int values5[2];
+  SkillLvlMeta *LvlMeta;
+  int values6[20];
+};
+struct SkillLvlMeta
+{
+  int id;
+  int maxLvl;
+  // 持续时间增益
+  int TimeAddon;
+  int pad1[178];
+  // 混合异常状态id
+  int lvlMixStatuId;
+  int pad2[20];
+};
+
+```
