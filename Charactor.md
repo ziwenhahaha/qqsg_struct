@@ -42,8 +42,10 @@ typedef struct PGameEntity
 };
 
 // direction values:
-// 1:左
-// 0:右
+// 1:水平移动
+// 5:静止
+// 2:跳跃浮空
+// 3:攀爬
 
 // moveState:
 // 2:静止
