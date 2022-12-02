@@ -83,3 +83,11 @@ messageState枚举
 0x80000 -- 僵直后仰
 
 ```
+
+MoveCtrlState
+
+``` txt
+
+0x2 僵直
+
+```
