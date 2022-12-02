@@ -40,8 +40,11 @@ struct MoveLapMeta
 // 传送带不是传送点，传送带的作用是为了实现类似十里坡里那种玩家不需要操作，也会跟着水流滑动的效果
 struct MoveDynamicLapMeta
 {
-	int todo[100];
+	int pad[9];
+	// 貌似是每一帧滑动的距离
+	int add_x;
+	int add_y;
+	int pad1[200];
 };
-
 
 ```
