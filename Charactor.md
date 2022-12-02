@@ -53,7 +53,9 @@ typedef struct PGameEntity
 // moveState:
 // 2:静止
 // 4:移动
+// 8:攀爬不动
 // 16：浮空状态（跳跃）
+// 32: 攀爬中
 
 // moveForward (pressedKey) FLAG enum:
 // 4:press left
