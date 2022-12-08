@@ -92,3 +92,39 @@ MoveCtrlState
 0x2 僵直
 
 ```
+
+``` txt
+
+// direction values:
+// 0-right,1-left,2-top,3-down
+
+// location direction values:
+// 1:水平移动
+// 5:静止
+// 2:跳跃浮空
+// 3:攀爬
+
+// moveState:
+// 2:静止
+// 4:移动
+// 8:攀爬左手在上
+// 16：浮空状态（跳跃）
+// 32: 攀爬右手在上
+
+// moveForward (pressedKey) FLAG enum:
+// 4:press left
+// 2:press right
+// 8:press up
+// 16:press down
+
+// 无法同时按左右 或 上下，其他组合可以位运算实现，比如按左上  1|4|8=13
+
+// entityType
+// 1:玩家
+// 2:怪物（子女属于一种怪物,即职业的怪物增伤对子女也有效果，但子女是不可被选中攻击的）
+// 3:NPC
+// 4:元神
+// 11:丢在地上的道具
+// 12:玩家摊位
+// 26:建筑物
+```
