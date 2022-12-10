@@ -106,11 +106,11 @@ MoveCtrlState
 // 3:攀爬
 
 // moveState:
-// 2:静止
-// 4:移动
-// 8:攀爬左手在上
+// 2:水平静止
+// 4:水平移动
+// 8:垂直移动
 // 16：浮空状态（跳跃）
-// 32: 攀爬右手在上
+// 32: 垂直静止
 
 // moveForward (pressedKey) FLAG enum:
 // 4:press left
